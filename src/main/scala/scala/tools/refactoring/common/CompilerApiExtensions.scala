@@ -5,7 +5,7 @@ package scala.tools.refactoring.common
  */
 trait CompilerApiExtensions {
   this: CompilerAccess =>
-  import global._
+  import global._ // Inherit from CompilerAccess
 
   /** Locate the smallest tree that encloses position.
    *
@@ -18,6 +18,12 @@ trait CompilerApiExtensions {
   def locateIn(tree: Tree, pos: Position, p: Tree => Boolean = t => true): Tree =
     new FilteringLocator(pos, p) locateIn tree
 
+  /**
+    * 
+    * @param tree
+    * @param pos
+    * @return
+    */
   def enclosingPackage(tree: Tree, pos: Position): Tree = {
     locateIn(tree, pos, _.isInstanceOf[PackageDef])
   }

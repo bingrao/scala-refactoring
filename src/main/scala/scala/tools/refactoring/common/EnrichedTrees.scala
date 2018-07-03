@@ -31,7 +31,7 @@ trait EnrichedTrees extends TracingImpl {
 
   enrichedTrees: CompilerAccess =>
 
-  import global._
+  import global._ // Inherit from CompilerAccess
 
   /**
    * Represent an import selector as a tree, including both names as trees.
@@ -1367,7 +1367,7 @@ trait EnrichedTrees extends TracingImpl {
     }
   }
 
-  def isClassTag(c: Constant): Boolean = c.tag == ClazzTag
+  def isClassTag(c: Constant): Boolean = (c.tag == ClazzTag)
 
   /**
    * Returns whether the tree is considered empty.
@@ -1408,6 +1408,9 @@ trait EnrichedTrees extends TracingImpl {
     def print(ctx: AbstractPrinter#PrintingContext): Fragment
   }
 
+  /**
+    * Inset different content into the generated source code.
+    */
   object PlainText {
 
     /**
@@ -1441,7 +1444,8 @@ trait EnrichedTrees extends TracingImpl {
     }
   }
 
-  /** Copy of [[scala.reflect.internal.Trees.ValOrDefDef]] of 2.11 to support 2.10. */
+  /** Copy of [[scala.reflect.internal.Trees.ValOrDefDef]] of 2.11 to support 2.10.
+    * Extract ValOrDefDef obj*/
   object ValOrDefDef {
     def unapply(tree: Tree): Option[(Modifiers, TermName, Tree, Tree)] = tree match {
       case ValDef(mods, name, tpt, rhs)       => Some((mods, name, tpt, rhs))

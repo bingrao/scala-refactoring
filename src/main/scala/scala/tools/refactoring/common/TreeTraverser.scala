@@ -94,7 +94,7 @@ trait TreeTraverser extends TracingImpl {
   }
 
   /**
-   *  A traverser that creates fake trees for various
+   *  A traverse that creates fake trees for various
    *  type trees so they can be treated as if they were
    *  regular trees.
    */

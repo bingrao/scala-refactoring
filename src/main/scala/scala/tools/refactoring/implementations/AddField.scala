@@ -10,7 +10,12 @@ abstract class AddField extends AddValOrDef {
   val global: tools.nsc.interactive.Global
   import global._
 
-  def addField(file: AbstractFile, className: String, valName: String, isVar: Boolean, returnTypeOpt: Option[String], target: AddMethodTarget): List[TextChange] =
+  def addField(file: AbstractFile,
+               className: String,
+               valName: String,
+               isVar: Boolean,
+               returnTypeOpt: Option[String],
+               target: AddMethodTarget): List[TextChange] =
     addValOrDef(file, className, target, addField(valName, isVar, returnTypeOpt, _))
 
   private def addField(valName: String, isVar: Boolean, returnTypeOpt: Option[String], classOrObjectDef: Tree): List[TextChange] = {
@@ -18,7 +23,11 @@ abstract class AddField extends AddValOrDef {
 
     val returnType = returnTypeOpt.map(name => TypeTree(newType(name))).getOrElse(new TypeTree)
 
-    val mods = if (isVar) Modifiers(Flag.MUTABLE) withPosition (Tokens.VAR, NoPosition) else NoMods
+    val mods =
+      if (isVar)
+        Modifiers(Flag.MUTABLE) withPosition (Tokens.VAR, NoPosition)
+      else
+        NoMods
 
     val newVal = mkValOrVarDef(mods, valName, returnStatement, returnType)
 

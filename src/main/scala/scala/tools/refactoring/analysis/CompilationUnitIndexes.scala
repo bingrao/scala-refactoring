@@ -23,12 +23,15 @@ trait CompilationUnitIndexes {
   import global._
 
   trait CompilationUnitIndex {
+
     def root: Tree
+    /*Record the relationship between the symbol and its definition*/
     def definitions: Map[Symbol, List[DefTree]]
+
+    /*Record the relationship between the symbol and its reference*/
     def references:  Map[Symbol, List[Tree]]
   }
   object CompilationUnitIndex {
-
 
     private lazy val scalaVersion = {
       val Version = "version (\\d+)\\.(\\d+)\\.(\\d+).*".r
@@ -37,6 +40,7 @@ trait CompilationUnitIndexes {
       }
     }
 
+    /*Factory method to create CompliationUnitIndex*/
     def apply(tree: Tree): CompilationUnitIndex = {
 
       assertCurrentThreadIsPresentationCompiler()
@@ -92,6 +96,9 @@ trait CompilationUnitIndexes {
         case _ => addReference(s, t)
       }
 
+      /**
+        * Traverse the tree and update the index
+        */
       (new TreeWithSymbolTraverser(handleSymbol)).traverse(tree)
 
       new CompilationUnitIndex {

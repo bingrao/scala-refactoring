@@ -5,8 +5,8 @@ import scala.reflect.internal.util.RangePosition
 import scala.reflect.internal.util.OffsetPosition
 
 /**
- * Provides functionalities to get positions of term names. This includes the term name
- * defintion and all its uses.
+  * Provides functionaries to get positions of term names.
+  * This includes the term name definitions and all its uses.
  */
 trait Occurrences extends Selections with CompilerAccess with Indexes {
   import global._

@@ -25,7 +25,7 @@ trait TreeAnalysis {
   def inboundLocalDependencies(selection: Selection, currentOwner: global.Symbol): List[global.Symbol] = {
 
     val allLocalSymbols = selection.selectedSymbols filter {
-      _.ownerChain.contains(currentOwner)
+        _.ownerChain.contains(currentOwner)
     }
 
     allLocalSymbols.filterNot {

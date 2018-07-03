@@ -17,7 +17,7 @@ trait InteractiveScalaCompiler extends CompilerAccess {
 
   val global: tools.nsc.interactive.Global
 
-  def compilationUnitOfFile(f: AbstractFile) = global.unitOfFile.get(f)
+  override def compilationUnitOfFile(f: AbstractFile) = global.unitOfFile.get(f)
 
   /**
    * Returns a fully loaded and typed Tree instance for the given SourceFile.
